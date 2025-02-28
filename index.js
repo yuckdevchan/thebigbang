@@ -52,7 +52,7 @@ function search(query) {
     "yt": "https://www.youtube.com/results?search_query=",
     "b": "https://www.bing.com/search?q=",
     "d": "https://duckduckgo.com/?q=",
-    "l": "https://duckduckgo.com/?q=!ducky&20",
+    "l": "https://duckduckgo.com/?q=!ducky ",
   };
 
   // Check for bang syntax (!w) or space syntax (w)
@@ -63,11 +63,11 @@ function search(query) {
       window.location.href = engines[engine] + encodeURIComponent(query);
       engineUsed = true;
       break;
-    } else if (query.endsWith(" " + engine)) {
-      query = query.replace(" " + engine, "");
-      window.location.href = engines[engine] + encodeURIComponent(query);
-      engineUsed = true;
-      break;
+    // } else if (query.endsWith(" " + engine)) {
+      // query = query.replace(" " + engine, "");
+      // window.location.href = engines[engine] + encodeURIComponent(query);
+      // engineUsed = true;
+      // break;
     }
   }
 
