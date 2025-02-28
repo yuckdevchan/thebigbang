@@ -1,2 +1,2 @@
 var arguments = window.location.search
-window.location = "/?" + arguments
+window.location = "/" + arguments
