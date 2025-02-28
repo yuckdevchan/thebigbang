@@ -1,37 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+::selection {
+    background-color: black;
+    color: white;
+}
+
+.search-container {
     justify-content: center;
     text-align: center;
-    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    user-select: none;
 }
 
-h1 {
+.search-container h1 {
     font-size: 4em;
-    margin-top: 3.75em;
+    margin-top: 3.5em;
 }
 
-input {
-    border: 0.1em solid black;
+.search-box {
+    box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 0.4);
+    border: none;
     border-radius: 0.5em;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
     padding: 0.75em;
     width: 25em;
+    max-width: 90%;
     height: 3em;
     margin: 0;
     font-size: 1.2em;
+    margin-top: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5em;
 }
 
-button {
-    border: 0.1em solid black;
-    border-radius: 0.5em;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    padding: 0.75em;
-    height: 3em;
-    font-size: 1.2em;
+.search-box input {
+    font-family: "Poppins", sans-serif;
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
     margin: 0;
-}
-
-input:focus {
+    padding: 0;
     outline: none;
+}
+
+.search-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.search-container button {
+    font-family: "Poppins", sans-serif;
+    border: none;
+    border-radius: 1.5em;
+    padding: 0.75em;
+    font-size: 1.05em;
+    margin: 0;
+    margin-top: 1em;
+}
+
+.search-container input:focus {
+    outline: none;
+}
+
+.links {
+    position: fixed;
+    bottom: 0.2em;
+}
+
+.links a {
+    color: black;
 }
