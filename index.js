@@ -45,9 +45,6 @@ async function getGoogleSuggestions(query) {
 
 function search(query) {
   var input = document.getElementById("searchBox");
-  if (input.value.length === 0) {
-    return;
-  }
   const engines = {
     "g": "https://www.google.com/search?q=",
     "w": "https://en.wikipedia.org/w/index.php?search=",
