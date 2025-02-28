@@ -1,0 +1,23 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>bing bing bang bang</title>
+</head>
+<body>
+    <h1>the big bang</h1>
+    <p>bing bing bang bang boom boom</p>
+    <input placeholder="Search the web..." id="searchBox"></input>
+</body>
+<script>
+  var input = document.getElementById("searchBox");
+  input.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      query = input.value
+      if (input.value.endsWith("!w")) {
+        window.location.href = "https://www.wikipedia.org/search?q=" + query.split(" !w")[0];
+      } else {
+        window.location.href = "https://www.google.com/search?q=" + query;
+      }
+    }
+  });
+</script>
