@@ -52,7 +52,7 @@ function search(query) {
     "yt": "https://www.youtube.com/results?search_query=",
     "b": "https://www.bing.com/search?q=",
     "d": "https://duckduckgo.com/?q=",
-    "l": "https://duckduckgo.com/?q=!ducky ",
+    "l": "https://duckduckgo.com/?q=!ducky&20",
   };
 
   // Check for bang syntax (!w) or space syntax (w)
