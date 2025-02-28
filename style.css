@@ -32,7 +32,6 @@ button {
     margin: 0;
 }
 
-button input:focus {
+input:focus {
     outline: none;
-    background-color: #f0f0f0;
 }
