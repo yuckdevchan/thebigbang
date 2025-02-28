@@ -89,3 +89,25 @@ body * {
 .links a {
     color: black;
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(20, 20, 20);
+        color: white;
+    }
+
+    .search-box, .search-box input {
+        background-color: rgb(38, 38, 38);
+        color: white;
+    }
+
+    ::selection {
+        background-color: white;
+        color: black;
+    }
+
+    .search-buttons button {
+        background-color: rgb(32, 32, 32);
+        color: white;
+    }
+}

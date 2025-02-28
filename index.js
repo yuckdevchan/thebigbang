@@ -1,3 +1,23 @@
+async function getGoogleSuggestions(query) {
+  const url = `https://suggestqueries.google.com/complete/search?output=firefox&q=${encodeURIComponent(query)}`;
+  
+  try {
+      const response = await fetch(url, {
+          headers: { 'Accept': 'application/json' }
+      });
+      
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data[1]; // Extracting only the suggestions array
+  } catch (error) {
+      console.error("Error fetching autocomplete suggestions:", error);
+      return [];
+  }
+}
+
 function search(query) {
   const engines = {
     "g": "https://www.google.com/search?q=",
