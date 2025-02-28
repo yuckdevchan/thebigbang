@@ -68,7 +68,7 @@ body * {
     gap: 0.5em;
 }
 
-.search-container button {
+.search-button {
     font-family: "Poppins", sans-serif;
     border: none;
     border-radius: 0.75em;
@@ -76,20 +76,29 @@ body * {
     font-size: 1.05em;
     margin: 0;
     margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.05em;
     transition: background-color 0.15s;
 }
 
-.search-container button:hover {
+.search-button svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.search-button:hover {
     background-color: rgba(0, 0, 0, 0.1);
     transition: background-color 0.15s;
 }
 
-.search-container button:active {
+.search-button:active {
     background-color: rgba(0, 0, 0, 0.2);
     transition: background-color 0.15s;
 }
 
-.search-container input:focus {
+.search-button:focus {
     outline: none;
 }
 
@@ -113,11 +122,11 @@ body * {
         color: white;
     }
 
-    .search-container button:hover {
+    .search-button:hover {
         background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .search-container button:active {
+    .search-button:active {
         background-color: rgba(255, 255, 255, 0.15);
     }
 
@@ -126,7 +135,7 @@ body * {
         color: black;
     }
 
-    .search-buttons button {
+    .search-button {
         background-color: rgb(32, 32, 32);
         color: white;
     }

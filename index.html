@@ -13,9 +13,9 @@
       <input placeholder="Search the web..." id="searchBox"></input>
     </div>
     <div class="search-buttons">
-      <button id="searchButton" onclick="search(document.getElementById('searchBox').value)">Search</button>
-      <button id="luckyButton" onclick="search(document.getElementById('searchBox').value + '!l')">I'm Feeling Lucky</button>
-      <button id="helpButton" onclick="showHelp()">What is this?</button>
+      <div class="search-button" id="searchButton" onclick="search(document.getElementById('searchBox').value)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5"/></svg>Search</div>
+      <div class="search-button" id="luckyButton" onclick="search(document.getElementById('searchBox').value + '!l')"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19 1l-1.26 2.75L15 5l2.74 1.26L19 9l1.25-2.74L23 5l-2.75-1.25M9 4L6.5 9.5L1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5M19 15l-1.26 2.74L15 19l2.74 1.25L19 23l1.25-2.75L23 19l-2.75-1.26"/></svg>I'm Feeling Lucky</div>
+      <!-- <div class="search-button" id="helpButton" onclick="showHelp()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M10 19h3v3h-3zm2-17c5.35.22 7.68 5.62 4.5 9.67c-.83 1-2.17 1.66-2.83 2.5C13 15 13 16 13 17h-3c0-1.67 0-3.08.67-4.08c.66-1 2-1.59 2.83-2.25C15.92 8.43 15.32 5.26 12 5a3 3 0 0 0-3 3H6a6 6 0 0 1 6-6"/></svg>What is this?</div> -->
     </div>
     <div class="links">
       <a href="https://github.com/yuckdevchan/thebigbang">Source Code</a>
