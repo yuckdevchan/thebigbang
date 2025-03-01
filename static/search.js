@@ -76,6 +76,24 @@ themeTogglebutton.addEventListener("click", function() {
   }
 });
 
+function searchButtonPressed() {
+  var input = document.getElementById("searchBox");
+  let query = input.value;
+  if (query.length === 0) {
+    return;
+  }
+  search(query);
+}
+
+function luckyButtonPressed() {
+  var input = document.getElementById("searchBox");
+  let query = input.value;
+  if (query.length === 0) {
+    return;
+  }
+  window.location.href = "https://duckduckgo.com/?q=!ducky " + encodeURIComponent(query);
+}
+
 suggestionsTimer = new Date().getTime();
 
 function updateSuggestions() {
