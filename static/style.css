@@ -52,6 +52,11 @@ body * {
     transition: background-color 0.2s;
 }
 
+#searchEngineIcon svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+
 .search-box input {
     font-family: "Poppins", sans-serif;
     border: none;
@@ -75,7 +80,7 @@ body * {
 
 .search-button {
     font-family: "Poppins", sans-serif;
-    border: none;
+    border: 0.05em solid transparent;
     border-radius: 0.75em;
     padding: 0.75em;
     font-size: 1.05em;
@@ -86,7 +91,7 @@ body * {
     justify-content: center;
     gap: 0.05em;
     background-color: rgb(233, 233, 233);
-    transition: background-color 0.15s, color 0.2s;
+    transition: background-color 0.15s, color 0.2s, border 0.2s;
 }
 
 .search-button svg {
@@ -95,11 +100,13 @@ body * {
 }
 
 .search-button:hover {
+    border: 0.05em solid grey;
     background-color: rgba(0, 0, 0, 0.1);
-    transition: background-color 0.15s;
+    transition: background-color 0.15s, border 0.2s;
 }
 
 .search-button:active {
+    border: 0.05em solid rgb(44, 108, 255);
     background-color: rgba(0, 0, 0, 0.2);
     transition: background-color 0.15s;
 }
@@ -121,14 +128,14 @@ body * {
     position: fixed;
     bottom: 0.3em;
     left: 0.3em;
-    border: none;
+    border: 0.05em solid transparent;
     border-radius: 1em;
     padding: 0.75em;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.25em;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, border 0.2s;
 }
 
 #themeToggleButton svg {
@@ -136,8 +143,20 @@ body * {
     height: 1.75em;
 }
 
+#themeToggleButton svg path {
+    stroke: rgb(65, 65, 65);
+}
+
 #themeToggleButton:hover {
+    border: 0.05em solid grey;
     background-color: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s, border 0.2s;
+}
+
+#themeToggleButton:active {
+    border: 0.05em solid rgb(44, 108, 255);
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, border 0.2s;
 }
 
 .dark-mode {
@@ -163,8 +182,8 @@ body * {
 }
 
 .dark-mode ::selection {
-    background-color: white;
-    color: black;
+    background-color: rgb(44, 108, 255);
+    color: rgb(17, 17, 17);
 }
 
 .dark-mode .search-button {
@@ -182,4 +201,8 @@ body * {
 
 .dark-mode #themeToggleButton:hover {
     background-color: rgba(255, 255, 255, 0.041);
+}
+
+.dark-mode #themeToggleButton svg path {
+    stroke: rgb(209, 209, 209);
 }
