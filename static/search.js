@@ -31,6 +31,51 @@ var arguments = window.location.search
 var q = new URLSearchParams(arguments).get("q")
 if (q) { search(q) }
 
+var sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4V2m0 18v2M6.414 6.414L5 5m12.728 12.728l1.414 1.414M4 12H2m18 0h2m-4.271-5.586L19.143 5M6.415 17.728L5 19.142M12 17a5 5 0 1 1 0-10a5 5 0 0 1 0 10"/></svg>';
+var moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6a9 9 0 0 0 9 9c.91 0 1.787-.134 2.614-.385A9 9 0 0 1 12 21A9 9 0 0 1 9.386 3.386A9 9 0 0 0 9 6"/></svg>'
+var themeToggleIcon = document.getElementById("themeToggleIcon");
+
+if (document.cookie.includes("theme=dark") || document.cookie.includes("theme=light")) {
+  if (document.cookie.includes("theme=dark")) {
+    document.body.classList.add('dark-mode');
+    themeToggleIcon.innerHTML = sunIcon;
+  } else {
+    themeToggleIcon.innerHTML = moonIcon;
+  }
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.body.classList.add('dark-mode');
+  themeToggleIcon.innerHTML = sunIcon;
+} else {
+  themeToggleIcon.innerHTML = moonIcon;
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (document.cookie.includes("theme=dark")) {
+    return;
+  } else if (document.cookie.includes("theme=light")) {
+    return;
+  }
+  if (e.matches) {
+    document.body.classList.add('dark-mode');
+    themeToggleIcon.innerHTML = sunIcon;
+  } else {
+    document.body.classList.remove('dark-mode');
+    themeToggleIcon.innerHTML = moonIcon;
+  }
+});
+
+var themeTogglebutton = document.getElementById("themeToggleButton");
+themeTogglebutton.addEventListener("click", function() {
+  document.body.classList.toggle('dark-mode');
+  if (document.body.classList.contains('dark-mode')) {
+    themeToggleIcon.innerHTML = sunIcon;
+    document.cookie = "theme=dark";
+  } else {
+    themeToggleIcon.innerHTML = moonIcon;
+    document.cookie = "theme=light";
+  }
+});
+
 suggestionsTimer = new Date().getTime();
 
 function updateSuggestions() {

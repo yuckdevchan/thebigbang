@@ -5,6 +5,7 @@ body {
     font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 body * {
@@ -48,6 +49,7 @@ body * {
     align-items: center;
     justify-content: flex-start;
     gap: 0.5em;
+    transition: background-color 0.2s;
 }
 
 .search-box input {
@@ -59,6 +61,9 @@ body * {
     margin: 0;
     padding: 0;
     outline: none;
+    caret-color: rgb(44, 108, 255);
+    background-color: transparent;
+    transition: color 0.2s;
 }
 
 .search-buttons {
@@ -80,7 +85,8 @@ body * {
     align-items: center;
     justify-content: center;
     gap: 0.05em;
-    transition: background-color 0.15s;
+    background-color: rgb(233, 233, 233);
+    transition: background-color 0.15s, color 0.2s;
 }
 
 .search-button svg {
@@ -111,36 +117,69 @@ body * {
     color: black;
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: rgb(20, 20, 20);
-        color: white;
-    }
+#themeToggleButton {
+    position: fixed;
+    bottom: 0.3em;
+    left: 0.3em;
+    border: none;
+    border-radius: 1em;
+    padding: 0.75em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+    transition: background-color 0.2s;
+}
 
-    .search-box, .search-box input {
-        background-color: rgb(38, 38, 38);
-        color: white;
-    }
+#themeToggleButton svg {
+    width: 1.75em;
+    height: 1.75em;
+}
 
-    .search-button:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
+#themeToggleButton:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 
-    .search-button:active {
-        background-color: rgba(255, 255, 255, 0.15);
-    }
+.dark-mode {
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
 
-    ::selection {
-        background-color: white;
-        color: black;
-    }
+.dark-mode .search-box {
+    background-color: rgb(38, 38, 38);
+    color: white;
+}
 
-    .search-button {
-        background-color: rgb(32, 32, 32);
-        color: white;
-    }
+.dark-mode .search-box input {
+    color: white;
+}
 
-    .links a {
-        color: rgb(222, 222, 222);
-    }
+.dark-mode .search-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .search-button:active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode ::selection {
+    background-color: white;
+    color: black;
+}
+
+.dark-mode .search-button {
+    background-color: rgb(32, 32, 32);
+    color: white;
+}
+
+.dark-mode .links a {
+    color: rgb(222, 222, 222);
+}
+
+.dark-mode #themeToggleButton {
+    color: white;
+}
+
+.dark-mode #themeToggleButton:hover {
+    background-color: rgba(255, 255, 255, 0.041);
 }
