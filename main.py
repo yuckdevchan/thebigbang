@@ -14,7 +14,7 @@ engines = {
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return send_from_directory("templates", "index.html")
 
 @app.route("/search/search.js")
 def search_js():
