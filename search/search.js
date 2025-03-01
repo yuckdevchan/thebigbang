@@ -18,11 +18,6 @@ function search(query) {
       window.location.href = engines[engine] + encodeURIComponent(query);
       engineUsed = true;
       break;
-    // } else if (query.endsWith(" " + engine)) {
-      // query = query.replace(" " + engine, "");
-      // window.location.href = engines[engine] + encodeURIComponent(query);
-      // engineUsed = true;
-      // break;
     }
   }
 
