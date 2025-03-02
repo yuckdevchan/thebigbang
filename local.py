@@ -1,7 +1,5 @@
 import os
 
-local = not os.path.exists("nonlocal")
-
 from quart import Quart, request, redirect, url_for, render_template
 app = Quart(__name__)
 
@@ -42,13 +40,10 @@ async def search():
 
 @app.route("/opensearch.xml")
 async def opensearch():
-    if local:
-        return await send_from_directory(".", "opensearchlocal.xml")
-    else:
-        return await send_from_directory(".", "opensearch.xml")
+    return await send_from_directory(".", "opensearchlocal.xml")
 
 if __name__ == "__main__":
-    debug = True
+    debug = False
     port = 4664
     if debug:
         app.run(debug=True, port=port)
