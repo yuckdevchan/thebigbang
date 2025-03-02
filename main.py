@@ -43,9 +43,9 @@ async def search():
 async def opensearch():
     local = not os.path.exists("nonlocal")
     if local:
-        return await render_template("opensearchlocal.xml", engines=engines)
+        return await send_from_directory(".", "opensearchlocal.xml", engines=engines)
     else:
-        return await send_from_directory("templates", "opensearch.xml")
+        return await send_from_directory(".", "opensearch.xml")
 
 if __name__ == "__main__":
     debug = True
