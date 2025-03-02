@@ -43,7 +43,7 @@ async def search():
 @app.route("/opensearch.xml")
 async def opensearch():
     if local:
-        return await send_from_directory(".", "opensearchlocal.xml", engines=engines)
+        return await send_from_directory(".", "opensearchlocal.xml")
     else:
         return await send_from_directory(".", "opensearch.xml")
 
