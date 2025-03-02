@@ -1,4 +1,5 @@
 from quart import Quart, render_template, redirect, send_from_directory, request
+import os
 
 app = Quart(__name__)
 
@@ -38,8 +39,19 @@ async def search():
     else:
         return redirect(engines["g"][1] + q)
 
+@app.route("/opensearch.xml")
+async def opensearch():
+    local = not os.path.exists("nonlocal")
+    if local:
+        return await render_template("opensearchlocal.xml", engines=engines)
+    else:
+        return await send_from_directory("templates", "opensearch.xml")
+
 if __name__ == "__main__":
-    # app.run(debug=True)
-    import uvicorn
+    debug = True
     port = 4664
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    if debug:
+        app.run(debug=True, port=port)
+    else:
+        import uvicorn
+        uvicorn.run(app, host="0.0.0.0", port=port)

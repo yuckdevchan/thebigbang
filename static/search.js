@@ -151,8 +151,9 @@ input.value = "";
 window.addEventListener("pageshow", function(event) {
   input.value = "";
   input.focus();
+  console.log("pageshow");
   var searchEngineIcon = document.getElementById("searchEngineIcon");
-  searchEngineIcon.innerHTML = engines["g"][1];
+  searchEngineIcon.innerHTML = engines["g"][2];
 });
 
 input.addEventListener("keypress", function(event) {
