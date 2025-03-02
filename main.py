@@ -22,12 +22,11 @@ engines = {
 
 @app.route("/")
 async def index():
-    # return await send_from_directory("templates", "index.html")
-    return await render_template("index.html", engines=engines)
+    return await render_template("index.html")
 
 @app.route("/search/search.js")
 async def search_js():
-    return await render_template("search.js", engines=engines)
+    return await render_template("search.js")
 
 @app.route("/search")
 async def search():
