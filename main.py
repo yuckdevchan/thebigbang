@@ -1,4 +1,8 @@
-var engines = {
+from quart import Quart, render_template, redirect, send_from_directory, request
+
+app = Quart(__name__)
+
+engines = {
   "g": ["Google", "https://www.google.com/search?q=", '<svg xmlns="http://www.w3.org/2000/svg" width="256" height="262" viewBox="0 0 256 262"><path fill="#4285f4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622l38.755 30.023l2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"/><path fill="#34a853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055c-34.523 0-63.824-22.773-74.269-54.25l-1.531.13l-40.298 31.187l-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"/><path fill="#fbbc05" d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82c0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602z"/><path fill="#eb4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0C79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"/></svg>'],
   "w": ["Wikipedia", "https://en.wikipedia.org/w/index.php?search=", '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="#cfd8dc" d="M6 10a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z"/><path fill="#37474f" d="M39 17.271a.34.34 0 0 1-.334.349h-1.799l-8.164 18.179c-.052.12-.17.2-.297.202h-.004a.33.33 0 0 1-.298-.193l-3.874-8.039l-4.18 8.049a.33.33 0 0 1-.303.184a.34.34 0 0 1-.292-.199l-8.252-18.182h-1.87a.345.345 0 0 1-.333-.35v-.921a.34.34 0 0 1 .333-.35h6.657a.34.34 0 0 1 .333.35v.921a.34.34 0 0 1-.333.349h-1.433l5.696 13.748l2.964-5.793l-3.757-7.953h-.904a.34.34 0 0 1-.333-.35v-.922c0-.191.149-.348.333-.348h4.924a.34.34 0 0 1 .333.348v.922c0 .192-.149.35-.333.35h-.867l2.162 4.948l2.572-4.948H25.77a.34.34 0 0 1-.334-.35v-.922a.34.34 0 0 1 .334-.348h4.784c.187 0 .333.156.333.348v.922a.34.34 0 0 1-.333.35h-1.05l-3.757 7.141l3.063 6.584l5.905-13.725h-1.872a.343.343 0 0 1-.334-.35v-.922c0-.191.15-.348.334-.348h5.822a.34.34 0 0 1 .334.348z"/></svg>'],
   "y": ["Yandex", "https://www.yandex.com/search/?text=", '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="#d61e3b" d="M21.88 2h-4c-4 0-8.07 3-8.07 9.62a8.33 8.33 0 0 0 4.14 7.66L9 28.13a1.25 1.25 0 0 0 0 1.27a1.21 1.21 0 0 0 1 .6h2.49a1.24 1.24 0 0 0 1.2-.75l4.59-9h.34v8.62a1.14 1.14 0 0 0 1.2 1.13H22a1.12 1.12 0 0 0 1.16-1.06V3.22A1.19 1.19 0 0 0 22 2ZM18.7 16.28h-.59c-2.3 0-3.66-1.87-3.66-5c0-3.9 1.73-5.29 3.34-5.29h.94Z"/></svg>'],
@@ -12,187 +16,31 @@ var engines = {
   "s": ["Startpage", "https://www.startpage.com/do/search?q=", '<svg width="501" height="501" viewBox="0 0 501 501" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clip-path="url(#clip0_11_308)"> <path d="M106.89 179.149C108.973 125.15 154.37 81.457 209.764 81.457C263.075 81.457 306.805 121.441 312.22 172.966C339.708 173.378 366.78 173.79 394.27 175.027C389.27 78.1593 308.473 0.665527 209.764 0.665527C108.14 0.665527 25.2578 82.6935 25.2578 183.271C25.2578 184.507 25.2578 185.744 25.2578 186.981C52.3298 183.683 79.8183 181.21 106.89 179.149Z" fill="#6677FB"/> <path d="M353.043 297.863L353.875 296.628C375.118 270.248 388.028 239.744 392.61 206.768C364.705 206.768 337.215 206.768 309.31 207.592C298.065 252.11 257.665 284.673 209.77 284.673C166.871 284.673 129.803 258.293 114.393 221.195C86.9045 224.08 59.416 227.79 31.9277 231.912C53.5852 308.993 125.222 365.465 209.77 365.465C236.841 365.465 263.498 359.695 288.07 348.153L289.32 347.74L290.153 348.565L404.27 486.24C412.185 495.72 423.43 501.08 435.925 501.08C445.503 501.08 454.668 497.78 461.748 492.01C470.078 485.003 475.49 475.523 476.325 464.805C477.158 454.088 474.243 443.783 467.16 435.128L353.043 297.863Z" fill="#202C46"/> </g> <defs> <clipPath id="clip0_11_308"> <rect width="500" height="500" fill="white" transform="translate(0.257812 0.665527)"/> </clipPath> </defs> </svg>'],
   "a": ["Ask.com", "https://www.ask.com/web?q=", '<svg height="1902" viewBox="-1.3 -.8 317.5 241.7" width="2500" xmlns="http://www.w3.org/2000/svg"><path d="m27 209.6c2.5 2.3 5.2 4.4 7.9 6.4 12.8 9.2 28.4 15.9 45.8 19.9 18.8 4.2 38.3 5 57.4 3.2 8.6-.8 17.1-2.2 25.6-4 11.4-2.4 22.6-5.8 33.4-9.9 5.5-2.1 11-4.4 16.3-6.9 12.6-5.9 24.7-12.9 36-21 3.8-2.8 7.6-5.6 11.2-8.7 4.4-3.7 8.7-7.5 12.8-11.6 3.4-3.4 6.6-6.8 9.7-10.5 2.6-3 5.1-6.2 7.5-9.4 11.1-15.1 18.7-31.2 22.1-47.3 3.5-16.2 2.7-33.5-3.3-48.8-1.7-4.2-3.7-8.3-6-12.2-3.2-5.2-6.9-10-11.1-14.4-1.5-1.5-3.1-2.8-4.6-4.2-1.7-1.5-3.4-2.9-5.2-4.3-3.7-2.9-7.6-5.5-11.6-7.8-11.4-6.6-24.1-11.2-37-14.1-17.3-3.9-35.2-4.8-52.8-3.5-9.7.7-19.4 2.1-28.9 4.2-11.7 2.5-23.3 5.9-34.5 10.2-5.3 2-10.3 4.2-15.3 6.5-16.7 7.7-31.7 16.9-44.8 27.4-2.9 2.3-5.6 4.6-8.4 7.1-1.6 1.4-3.2 2.8-4.7 4.3-4.4 4.2-8.5 8.4-12.5 13-2.9 3.4-5.7 6.9-8.4 10.6-9.7 13.5-17.4 28.7-21.2 45-3.7 16.3-3.3 33.4 2.5 49l1.5 3.6c1.5 3.5 3.3 6.9 5.4 10.2s4.4 6.5 6.9 9.5c2.6 3 5.3 5.9 8.3 8.5" fill="#ce0000"/><path d="m265 79c-.3-.2-.8-.2-1.7-.1-1.6.2-11.5 1.2-15.8 1.6-1.8.2-2.6.9-3.4 2.3-.8 1.3-22.6 38.5-22.6 38.5s16.6-89.6 17.1-92.1c.6-3.1 0-3.8-2.4-3.8-2.5 0-13.8 1.3-15.5 1.5-2.2.3-3 1-3.5 3.8-.4 2.1-24.7 134.7-25.1 137.1-.7 3.8-.6 3.9 2.8 3.3 2-.3 11.6-1.9 15.7-2.5 1.2-.2 1.9-.2 2.3-2.1s7.8-40.8 7.8-40.8 12.5 35.6 13.1 37.1c.5 1.4.9 1.9 2.7 1.6 4.5-.7 14.8-2.4 15.8-2.6 1.8-.3 2.1-.8 1.6-2.3-.5-1.6-13.3-38.4-13.3-38.4s23.6-38.8 24.5-40.4c.4-.7.4-1.4-.1-1.7zm-75.5 9.8c-3.1-1.2-9.5-3.1-17.1-2.2-11.4 1.3-19.4 6.3-23.5 14.1-4.2 7.9-3.5 16.7-2.1 21.1s5 9.5 10 13.8c11 9.7 10.7 17.2 9.1 20.4-1.9 3.9-7.4 7-14.9 5.4s-9.9-6.5-9.9-6.5-3.7 12.9-4.4 15.4c-1 3.4-.6 4.4 2.6 5.7 4.2 1.7 12.3 3.6 25.4 1 9-1.7 17-8.8 20.9-16.2 4-7.6 6.5-22.5-6.1-33.8-10.2-9.2-11.3-10.8-12.4-12.8-2-3.6-.4-7.9 1.5-10.2 1.7-2.1 3.9-3.1 7.5-2.9s10 5 10 5 4.6-12.9 4.9-14c.6-1.5.2-2.7-1.5-3.3zm-69.1-42.4c-.3-4-3.5-3.2-5-.3-4.9 9.8-71.4 143.6-72.2 145.3-1.2 2.4-.2 2.8 2.1 2.5 1.7-.2 16.4-2.5 20.8-3.2 1.5-.2 2-.5 2.5-1.6.2-.6 10.7-24.7 10.7-24.7l29.3-4.5s.3 18.5.3 21.7c0 1.4.1 2.3 2.6 1.9 2.8-.4 14.3-2.2 15.9-2.5 2.9-.5 3.2-1.2 3-3.8-.1-1.8-9.2-121.4-10-130.8zm-33.2 98.9 21.3-49 .2 45.7z" fill="#fff"/></svg>'],
   "m": ["Mojeek", "https://www.mojeek.com/search?q=", '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="918.886px" height="564.459px" viewBox="0 0 918.886 564.459" enable-background="new 0 0 918.886 564.459" xml:space="preserve"> <g> 	<defs> 		<rect id="SVGID_1_" x="897.19" y="484.072" width="841.89" height="595.276"/> 	</defs> 	<clipPath id="SVGID_2_"> 		<use xlink:href="#SVGID_1_" overflow="visible"/> 	</clipPath> 	<path clip-path="url(#SVGID_2_)" fill="#7AB93C" d="M1209.006,794.563c-2.889,0-4.492-1.925-4.492-6.257 c0-4.331,2.672-22.802,3.703-31.273c1.916-15.733-7.154-27.134-20.309-27.134c-10.424,0-18.377,4.122-24.612,10.76 c-4.231-6.398-8.983-10.76-18.229-10.76c-9.004,0-14.588,3.299-20.086,8.586c-2.955-5.809-8.225-8.586-16.104-8.586 c-6.538,0-15.322,3.279-20.597,6.525l5.875,13.299c4.002-2.227,7.281-3.91,10.101-3.91c3.087,0,4.921,2.226,4.409,6.881 c-0.494,4.493-5.94,55.987-5.94,55.987h17.724c0,0,3.479-33.052,4.705-42.995c1.437-11.653,7.08-19.031,15.121-19.031 c7.06,0,9.463,5.555,8.957,12.05c-0.441,5.656-5.588,49.977-5.588,49.977h17.823c0,0,3.935-36.743,5.163-45.849 c1.598-11.826,9.227-16.178,14.012-16.178c7.868,0,10.262,6.438,9.524,12.535c-0.599,4.967-2.729,22.455-3.38,31.531 c-0.801,11.222,4.492,19.564,14.52,19.564c6.578,0,13.15-1.875,17.836-4.553l-3.84-13.156 C1213.073,793.541,1210.959,794.563,1209.006,794.563"/> 	<path clip-path="url(#SVGID_2_)" fill="#7AB93C" d="M1298.631,803.519c-0.667,6.565-2.793,9.854-7.759,9.854 c-2.435,0-5.452-1.002-8.189-2.125l-6.618,15.23c3.631,2.23,11.992,4.011,17.287,4.011c17.166,0,21.497-13.064,23.424-30.712 c1.282-12.513,6.981-68.905,6.981-68.905l-18.138,5.145C1305.62,736.016,1299.735,792.643,1298.631,803.519"/> 	<path clip-path="url(#SVGID_2_)" fill="#7AB93C" d="M1318.053,695.017c-6.881,0-11.783,5.764-12.221,11.856 c-0.439,6.096,3.634,11.858,10.515,11.858c6.278,0,11.783-5.763,12.222-11.858C1329.007,700.781,1324.332,695.017,1318.053,695.017 "/> 	<path clip-path="url(#SVGID_2_)" fill="#7AB93C" d="M1365.962,794.563c-8.629,0-13.677-6.34-15.25-15.156 c28.4,1.965,44.107-9.805,44.107-27.117c0-13.957-12.875-22.22-24.546-22.22c-22.621,0-38.452,18.69-38.452,43.478 c0,22.019,11.6,36.737,31.609,36.737c12.738,0,23.287-5.774,31.497-16.215l-9.434-10.597 C1379.683,789.234,1373.883,794.563,1365.962,794.563 M1369.792,745.303c4.974,0,7.601,3.216,7.601,7.234 c0,10.586-13.015,15.135-26.628,14.498C1352.98,755.477,1361.167,745.303,1369.792,745.303"/> 	<path clip-path="url(#SVGID_2_)" fill="#7AB93C" d="M1436.418,794.563c-8.629,0-13.677-6.34-15.25-15.156 c28.4,1.965,44.107-9.805,44.107-27.117c0-13.957-12.874-22.22-24.547-22.22c-22.619,0-38.451,18.69-38.451,43.478 c0,22.019,11.601,36.737,31.609,36.737c12.738,0,23.287-5.774,31.498-16.215l-9.435-10.597 C1450.139,789.234,1444.339,794.563,1436.418,794.563 M1440.249,745.303c4.974,0,7.601,3.216,7.601,7.234 c0,10.586-13.015,15.135-26.627,14.498C1423.436,755.477,1431.623,745.303,1440.249,745.303"/> 	<path clip-path="url(#SVGID_2_)" fill="#7AB93C" d="M1537.646,793.276c-2.09,0.823-3.927,1.287-6.076,1.287 c-6.146,0-8.866-5.145-11.388-11.149c-1.963-4.677-5.573-14.448-8.574-22.942l27.906-28.797h-21.549 c-4.902,4.803-17.541,17.477-23.986,23.947c2.904-28.595,5.877-57.879,5.877-57.879l-17.893,5.144c0,0-9.643,94.489-10.747,105.366 h17.409c0.37-3.607,1.461-14.322,2.824-27.738l6.751-7.013c2.084,5.337,4.375,11.784,5.904,15.651 c5.209,13.172,10.729,21.133,22.744,21.133c4.685,0,10.344-1.401,14.664-3.596L1537.646,793.276z"/> 	<path clip-path="url(#SVGID_2_)" fill="#7AB93C" d="M1290.075,766.729c0-18.651-11.357-36.642-32.453-36.642 c-21.782,0-37.321,19.022-37.321,43.539c0,23.661,12.694,36.659,31.625,36.659C1276.513,810.286,1290.075,788.896,1290.075,766.729 M1252.696,794.454c-7.588,0-13.461-6.568-13.461-19.704c0-17.086,8.158-28.957,18.387-28.957c9.465,0,13.393,11.371,13.393,21.979 C1271.014,784.055,1261.952,794.454,1252.696,794.454"/> </g> <path fill="#7AB93C" d="M847.721,454.06c-20.283,0-31.543-13.517-31.543-43.936c0-30.411,18.762-160.11,26.003-219.596 C855.635,80.055,791.945,0,699.579,0C626.385,0,570.54,28.944,526.755,75.553C497.043,30.628,463.676,0,398.751,0 c-63.22,0-102.43,23.165-141.037,60.289C236.966,19.505,199.96,0,144.629,0C98.72,0,37.039,23.023,0,45.816l41.259,93.382 c28.094-15.63,51.128-27.453,70.921-27.453c21.677,0,34.554,15.628,30.961,48.316c-3.469,31.55-41.713,393.131-41.713,393.131 h124.455c0,0,24.423-232.082,33.032-301.903c10.09-81.827,49.715-133.634,106.184-133.634c49.567,0,66.443,39.001,62.891,84.613 c-3.1,39.716-39.237,350.924-39.237,350.924h125.152c0,0,27.627-258.003,36.253-321.939 c11.219-83.044,64.788-113.598,98.388-113.598c55.249,0,72.057,45.201,66.879,88.02c-4.203,34.876-19.166,157.676-23.732,221.407 c-5.624,78.796,31.542,137.377,101.954,137.377c46.188,0,92.339-13.165,125.239-31.969l-26.963-92.379 C876.276,446.88,861.436,454.06,847.721,454.06"/> </svg>'],
-};
-
-function search(query) {
-  var input = document.getElementById("searchBox");
-
-  // Check for bang syntax (!w) or space syntax (w)
-  let engineUsed = false;
-  for (let engine in engines) {
-    if (query.endsWith(" !" + engine) || query.endsWith("!" + engine)) {
-      query = query.replace(" !" + engine, "").replace("!" + engine, "");
-      window.location.href = engines[engine][1] + encodeURIComponent(query);
-      engineUsed = true;
-      break;
-    }
-  }
-
-  // If no specific engine was used, default to Google
-  if (!engineUsed) {
-      window.location.href = engines["g"][1] + encodeURIComponent(query);
-  }
 }
 
-var arguments = window.location.search
-var q = new URLSearchParams(arguments).get("q")
-if (q) { search(q) }
+@app.route("/")
+async def index():
+    # return await send_from_directory("templates", "index.html")
+    return await render_template("index.html", engines=engines)
 
-var sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4V2m0 18v2M6.414 6.414L5 5m12.728 12.728l1.414 1.414M4 12H2m18 0h2m-4.271-5.586L19.143 5M6.415 17.728L5 19.142M12 17a5 5 0 1 1 0-10a5 5 0 0 1 0 10"/></svg>';
-var moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6a9 9 0 0 0 9 9c.91 0 1.787-.134 2.614-.385A9 9 0 0 1 12 21A9 9 0 0 1 9.386 3.386A9 9 0 0 0 9 6"/></svg>'
-var themeToggleIcon = document.getElementById("themeToggleIcon");
+@app.route("/search/search.js")
+async def search_js():
+    return await render_template("search.js", engines=engines)
 
-if (document.cookie.includes("theme=dark") || document.cookie.includes("theme=light")) {
-  if (document.cookie.includes("theme=dark")) {
-    document.body.classList.add('dark-mode');
-    themeToggleIcon.innerHTML = sunIcon;
-  } else {
-    themeToggleIcon.innerHTML = moonIcon;
-  }
-} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  document.body.classList.add('dark-mode');
-  themeToggleIcon.innerHTML = sunIcon;
-} else {
-  themeToggleIcon.innerHTML = moonIcon;
-}
+@app.route("/search")
+async def search():
+    q = request.args.get("q")
+    if not q:
+        return redirect("/")
+    if "!" in q:
+        for engine in engines:
+            if q.endswith(f" !{engine}"):
+                return redirect(engines[engine][1] + q[:-len(f" !{engine}")])
+    else:
+        return redirect(engines["g"][1] + q)
 
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-  if (document.cookie.includes("theme=dark")) {
-    return;
-  } else if (document.cookie.includes("theme=light")) {
-    return;
-  }
-  if (e.matches) {
-    document.body.classList.add('dark-mode');
-    themeToggleIcon.innerHTML = sunIcon;
-  } else {
-    document.body.classList.remove('dark-mode');
-    themeToggleIcon.innerHTML = moonIcon;
-  }
-});
-
-var themeTogglebutton = document.getElementById("themeToggleButton");
-themeTogglebutton.addEventListener("click", function() {
-  document.body.classList.toggle('dark-mode');
-  if (document.body.classList.contains('dark-mode')) {
-    themeToggleIcon.innerHTML = sunIcon;
-    document.cookie = "theme=dark";
-  } else {
-    themeToggleIcon.innerHTML = moonIcon;
-    document.cookie = "theme=light";
-  }
-});
-
-function searchButtonPressed() {
-  var input = document.getElementById("searchBox");
-  let query = input.value;
-  if (query.length === 0) {
-    return;
-  }
-  search(query);
-}
-
-function luckyButtonPressed() {
-  var input = document.getElementById("searchBox");
-  let query = input.value;
-  if (query.length === 0) {
-    return;
-  }
-  window.location.href = "https://duckduckgo.com/?q=!ducky " + encodeURIComponent(query);
-}
-
-suggestionsTimer = new Date().getTime();
-
-function updateSuggestions() {
-  if (input.value.length === 0) {
-    return;
-  }
-  if (new Date().getTime() - suggestionsTimer < 250) {
-    return;
-  }
-  suggestionsTimer = new Date().getTime();
-  getGoogleSuggestions(input.value).then((suggestions) => {
-    let suggestionList = document.getElementById("suggestionList");
-    suggestionList.innerHTML = "";
-    suggestions.forEach((suggestion) => {
-      let suggestionElement = document.createElement("li");
-      suggestionElement.textContent = suggestion;
-      suggestionElement.addEventListener("click", function() {
-        input.value = suggestion;
-        search(suggestion);
-      });
-      suggestionList.appendChild(suggestionElement);
-    });
-  });
-}
-
-async function getGoogleSuggestions(query) {
-  const url = `https://corsproxy.io/?https://suggestqueries.google.com/complete/search?output=firefox&q=${encodeURIComponent(query)}`;
-  
-  try {
-      const response = await fetch(url, {
-          headers: { 'Accept': 'application/json' }
-      });
-
-      if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data[1]; // Extracting only the suggestions array
-  } catch (error) {
-      console.error("Error fetching autocomplete suggestions:", error);
-      return [];
-  }
-}
-
-var input = document.getElementById("searchBox");
-input.value = "";
-
-window.addEventListener("pageshow", function(event) {
-  input.value = "";
-  input.focus();
-  console.log("pageshow");
-  var searchEngineIcon = document.getElementById("searchEngineIcon");
-  searchEngineIcon.innerHTML = engines["g"][2];
-});
-
-input.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    let query = input.value;
-    if (query.length === 0) {
-      return;
-    }
-    search(query);
-  }
-});
-
-input.addEventListener("input", function(event) {
-  var text = input.value;
-  var usedEngine = null;
-  for (let engine in engines) {
-    if (text.endsWith(" !" + engine) || text.endsWith("!" + engine)) {
-      usedEngine = engine;
-      break;
-    }
-  }
-  var searchEngineIcon = document.getElementById("searchEngineIcon");
-  if (usedEngine) {
-    searchEngineIcon.innerHTML = engines[usedEngine][2];
-  } else {
-    searchEngineIcon.innerHTML = engines["g"][2];
-  }
-});
-
-var body = document.querySelector("body");
-body.addEventListener("keydown", function(event) {
-  if (event.ctrlKey && event.key === "a") {
-    input.select();
-  }
-});
-
-window.addEventListener("click", function() {
-  console.log("clicked");
-  input.focus();
-});
+if __name__ == "__main__":
+    # app.run(debug=True)
+    import uvicorn
+    port = 4664
+    uvicorn.run(app, host="0.0.0.0", port=port)
